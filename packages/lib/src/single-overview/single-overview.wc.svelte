@@ -50,6 +50,10 @@
             percentile = percentile === 100 ? 99 : 1;
         }
 
+        if (percentile_chinese === 100 || percentile_chinese === 0) {
+            percentile_chinese = percentile_chinese === 100 ? 99 : 1;
+        }
+
         show = true;
     });
 </script>
