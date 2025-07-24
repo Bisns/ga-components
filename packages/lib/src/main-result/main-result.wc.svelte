@@ -138,11 +138,11 @@
             {:else if lang === 'chinese'}
                 <div class="msg-japanese">
                     {#if glycanage === chronoage}
-                        您和实际年龄一样
+                        您与实际年龄相同
                     {:else if glycanage > chronoage}
                         您比实际年龄大{diff}岁
                     {:else if glycanage < chronoage}
-                        您比实际年龄小{diff}岁
+                        您比实际年龄年轻{diff}岁
                     {/if}
                 </div>
             {:else}
