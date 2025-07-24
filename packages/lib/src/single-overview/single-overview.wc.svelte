@@ -17,6 +17,7 @@
 
     let reportData: any;
     let percentile = 0;
+    let percentile_chinese = 0;
 
     let show = false;
 
@@ -26,18 +27,23 @@
         switch (type) {
             case 'shield':
                 percentile = Number(reportData.Spercentile);
+                percentile_chinese = Number(reportData.Spercentile);
                 break;
             case 'youth':
                 percentile = Number(reportData.G2percentile);
+                percentile_chinese = Number(reportData.G2percentile);
                 break;
             case 'mature':
-                percentile = 100 - Number(reportData.G0percentile);
+                percentile = Number(reportData.G0percentile);
+                percentile_chinese = 100 - Number(reportData.G0percentile);
                 break;
             case 'median':
-                percentile = Number(reportData.G1percentile) * 2;
+                percentile = Number(reportData.G1percentile);
+                percentile_chinese = Number(reportData.G1percentile) * 2;
                 break;
             case 'lifestyle':
-                percentile = 100 - Number(reportData.Bpercentile);
+                percentile = Number(reportData.Bpercentile);
+                percentile_chinese = 100 - Number(reportData.Bpercentile);
         }
 
         if (percentile === 100 || percentile === 0) {
@@ -54,7 +60,7 @@
             {#if lang === 'chinese'}
                 {getTranslation(lang, 'RANKS_YOU_BEFORE')}&nbsp;
                 <span style="color: {type === 'shield' || type === 'youth' ? getColorRedToBlueWithPercentile(percentile) : type === 'median' ? getColorMedianWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}; height: 80%; display: flex;">
-                 <b>{percentile}%</b>
+                 <b>{percentile_chinese}%</b>
                  </span>
                 &nbsp;{getTranslation(lang, 'RANKS_YOU_AFTER')}
             {:else}
