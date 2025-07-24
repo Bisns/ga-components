@@ -243,6 +243,7 @@
         if (details) {
             counter = allCounters[details.counter];
             max = details.max;
+            name = details.name;
         }
 
         switch (max) {
@@ -310,13 +311,13 @@
         <div class="container">
             {#if lang === 'chinese'}
                 {#if message === 'no significant overlap'}
-                    <p>您的糖链检查结果显示，和高血压风险没有相关性。</p>
+                    <p>您的糖链检查结果显示，和{name}没有相关性。</p>
                 {/if}
                 {#if message === 'some overlap'}
-                    <p>您的糖链检查结果显示，和高血压风险有一些相关性。</p>
+                    <p>您的糖链检查结果显示，和{name}有一些相关性。</p>
                 {/if}
                 {#if message === 'minor overlap'}
-                    <p>您的糖链检查结果显示，和高血压风险有低相关性。</p>
+                    <p>您的糖链检查结果显示，和{name}有低相关性。</p>
                 {/if}
             {:else}
                 <p>There is <b style="color: {color};">{message}</b> of glycan metrics <br> between current results and this condition.</p>
