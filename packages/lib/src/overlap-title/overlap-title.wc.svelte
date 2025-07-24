@@ -121,6 +121,8 @@
     let p23Percentile = 0; // p23percentile
     let p26Percentile = 0; // p26percentile
 
+    let disease_name = '';
+
     let show = false;
 
     const details = diseases.find(x => x.name === disease);
