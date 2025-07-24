@@ -31,13 +31,13 @@
                 percentile = Number(reportData.G2percentile);
                 break;
             case 'mature':
-                percentile = Number(reportData.G0percentile);
+                percentile = 100 - Number(reportData.G0percentile);
                 break;
             case 'median':
-                percentile = Number(reportData.G1percentile);
+                percentile = Number(reportData.G1percentile) * 2;
                 break;
             case 'lifestyle':
-                percentile = Number(reportData.Bpercentile);
+                percentile = 100 - Number(reportData.Bpercentile);
         }
 
         if (percentile === 100 || percentile === 0) {
@@ -56,7 +56,7 @@
                 <span style="color: {type === 'shield' || type === 'youth' ? getColorRedToBlueWithPercentile(percentile) : type === 'median' ? getColorMedianWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}; height: 80%; display: flex;">
                  <b>{percentile}%</b>
                  </span>
-                {getTranslation(lang, 'RANKS_YOU_AFTER')}
+                &nbsp;{getTranslation(lang, 'RANKS_YOU_AFTER')}
             {:else}
                 {getTranslation(lang, 'RANKS_YOU')}&nbsp;
                 <span style="color: {type === 'shield' || type === 'youth' ? getColorRedToBlueWithPercentile(percentile) : type === 'median' ? getColorMedianWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}; height: 80%; display: flex;">
