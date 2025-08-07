@@ -40,9 +40,9 @@
             case 'median':
                 percentile = Number(reportData.G1percentile);
                 if (Number(reportData.G1percentile) <= 50) {
-		            percentile_chinese = Number(reportData.G1percentile) * 2;
+		    percentile_chinese = Number(reportData.G1percentile) * 2;
                 } else {
-		            percentile_chinese = (100 - Number(reportData.G1percentile)) * 2;
+		    percentile_chinese = (100 - Number(reportData.G1percentile)) * 2;
                 }
                 break;
             case 'lifestyle':
