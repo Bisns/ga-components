@@ -46,25 +46,25 @@
             name: 'peak18',
             label: '18',
             csvName: 'P18percentile',
-            chineseLabel: '18号糖链'
+            chineseLabel: '18号峰'
         },
         {
             name: 'peak22',
             label: '22',
             csvName: 'P22percentile',
-            chineseLabel: '22号糖链'
+            chineseLabel: '22号峰'
         },
         {
             name: 'peak23',
             label: '23',
             csvName: 'P23percentile',
-            chineseLabel: '23号糖链'
+            chineseLabel: '23号峰'
         },
         {
             name: 'peak26',
             label: '26',
             csvName: 'P26percentile',
-            chineseLabel: '26号糖链'
+            chineseLabel: '26号峰'
         }
 
     ]
