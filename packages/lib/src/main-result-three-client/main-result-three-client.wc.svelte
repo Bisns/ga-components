@@ -1,4 +1,4 @@
-<svelte:options customElement={{ tag: 'ga-main-result-three', shadow: 'open' }}/>
+<svelte:options customElement={{ tag: 'ga-main-result-three-client', shadow: 'open' }}/>
 
 <script lang="ts">
   import {onMount} from 'svelte';
@@ -123,7 +123,7 @@
         </div>
       {:else}
         <div style="text-align: center; font-size: 1.2rem; color: black;">
-          This means that your client’s <br> immune system health resembles <br> <b>an average {glycanage} year old individual</b>
+          This means that your immune <br> system health resembles <b>an <br> average {glycanage} year old individual</b>
         </div>
       {/if}
     </div>

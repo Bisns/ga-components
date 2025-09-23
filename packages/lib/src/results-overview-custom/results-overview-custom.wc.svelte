@@ -1,12 +1,11 @@
-<svelte:options customElement={{ tag: 'ga-results-overview-three', shadow: 'open' }}/>
+<svelte:options customElement={{ tag: 'ga-results-overview-custom', shadow: 'open' }}/>
 
 <script lang="ts">
   import {onMount} from 'svelte';
   import {
     calculateSliderPositionWithPercentile,
     getColorBlueToRedWithPercentile,
-    getColorRedToBlueWithPercentile,
-    getTranslation, suffix
+    getColorRedToBlueWithPercentile
   } from '../shared/functions/helpers';
   import {Service} from '../shared/utils/service';
 
@@ -17,38 +16,90 @@
   let reportData: any;
 
   let label = '';
+  let subtitle = '';
   let description = '';
   let percentile = 0;
   let glycanage = 0;
   let chronoage = 0;
+  let diff = 0;
 
   let show = false;
 
+  function getColor() {
+    if (glycanage === chronoage || diff <= 6) {
+      return '#66CCAA';
+    } else if (glycanage < chronoage && diff <= 12) {
+      return '#13A195';
+    } else if (glycanage < chronoage && diff > 12) {
+      return '#015566';
+    }  else if (glycanage > chronoage && diff <= 12) {
+      return '#F2800D';
+    } else if (glycanage > chronoage && diff > 12) {
+      return '#DF2120';
+    }
+  }
+
+  function calc() {
+    if (glycanage === chronoage) {
+      return 50;
+    } else if (glycanage > chronoage) {
+      if (diff <= 6) {
+        return 51 + (2*diff + (diff*0.3));
+      } else if (diff <= 12) {
+        return 52 + (diff + (2 * diff * 0.65));
+      } else if (diff <= 18) {
+        return 55 + (2*diff + (diff*0.20));
+      } else {
+        return 97.2;
+      }
+    } else if (glycanage < chronoage) {
+      if (diff <= 6) {
+        return 49 - (2*diff + (diff*0.3));
+      } else if (diff <= 12) {
+        return 48 - (diff + (2 * diff * 0.65));
+      } else if (diff <= 18) {
+        return 45 - (2*diff + (diff*0.20));
+      } else {
+        return 2.8;
+      }
+    }
+  }
+
   let subtypes = [
     {
+      name: 'age',
+      label: 'BIOLOGICAL_AGE',
+      description: 'CHRONIC_INFLAMMATION'
+    },
+    {
       name: 'shield',
-      label: 'GLYCAN_SHIELD',
-      description: 'ANTI_INFLAMMATORY_INDEX'
+      label: 'S Indeks',
+      subtitle: 'Sijalinizacija',
+      description: 'Protuupalni indeks'
     },
     {
       name: 'youth',
-      label: 'GLYCAN_YOUTH',
-      description: 'ANTI_INFLAMMATORY_INDEX'
+      label: 'G2 Indeks',
+      subtitle: 'Digalaktozilacija',
+      description: 'Protuupalni indeks'
     },
     {
       name: 'mature',
-      label: 'GLYCAN_MATURE',
-      description: 'PRO_INFLAMMATORY_INDEX'
+      label: 'G0 Indeks',
+      subtitle: 'Digalaktozilacija',
+      description: 'Proupalni indeks'
     },
     {
       name: 'median',
-      label: 'GLYCAN_MEDIAN',
-      description: 'SUPPORTIVE_INDEX'
+      label: 'G1 Indeks',
+      subtitle: 'Monogalaktozilacija',
+      description: 'Protuupalni indeks'
     },
     {
       name: 'lifestyle',
-      label: 'GLYCAN_LIFESTYLE_B',
-      description: 'SUPPORTIVE_INDEX'
+      label: 'B Indeks',
+      subtitle: 'Račvajući GlcNAc',
+      description: 'Proupalni indeks'
     }
   ];
 
@@ -58,8 +109,12 @@
     reportData = await service.getReport();
     glycanage = Number(reportData.glycanage);
     chronoage = Number(reportData.chronologicalage);
+    diff = Math.abs(glycanage - chronoage);
 
     switch (type) {
+      case 'age':
+        percentile = Number(reportData.glycanage);
+        break;
       case 'shield':
         percentile = Number(reportData.Spercentile);
         break;
@@ -83,6 +138,7 @@
     if (details) {
       label = details.label;
       description = details.description;
+      subtitle = details.subtitle;
     }
 
     show = true;
@@ -93,14 +149,15 @@
   <div class="main">
     <div class="label">
       <div class="label-container">
-        <b style="font-size: {lang === 'slovenian' ? 0.70 : 0.8}rem;">{getTranslation(lang, label)}</b>
-        <div style="font-size: 0.7rem;">
-          {getTranslation(lang, description)}
+        <span style="font-size: 0.7rem;">{label}</span>
+        <span style="font-size: 0.48rem;">{subtitle}</span>
+        <div style="font-size: 0.44rem; color: {description === 'Protuupalni indeks' ? '#119999' : '#DD2222'};">
+          <b>{description}</b>
         </div>
       </div>
     </div>
     <div class="graph-container">
-      {#if type === 'mature' || type === 'lifestyle'}
+      {#if type === 'mature' || type === 'lifestyle' || type === 'age'}
         <div class="colorBoxShort" style="background-color: #015566;"></div>
         <div class="colorBox" style="background-color: #015566;"></div>
         <div class="colorBox" style="background-color: #13A195;"></div>
@@ -121,29 +178,29 @@
       {/if}
 
       <div class="slider" style="left: {calculateSliderPositionWithPercentile(percentile)}%;">
-        <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="50" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="100" height="24" rx="4" fill="{type === 'shield' || type === 'youth' || type === 'median' ? getColorRedToBlueWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}"/>
         </svg>
       </div>
 
       <div class="slider-number" style="left: {calculateSliderPositionWithPercentile(percentile)}%;">
-        <b>{percentile}<sup style="font-size: 0.5rem;">{suffix(percentile, lang)}</sup> percentile</b>
+        <b>{percentile}. percentil</b>
       </div>
 
       <div class="slider-triangle" style="left: {calculateSliderPositionWithPercentile(percentile)}%;">
-        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="9" height="5" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.8 6.93333C6.4 7.46667 5.6 7.46667 5.2 6.93333L0 8.07577e-07L12 0L6.8 6.93333Z" fill="{type === 'shield' || type === 'youth' || type === 'median' ? getColorRedToBlueWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}"/>
         </svg>
       </div>
 
       <div class="text-left" style="width: 34.7%;">
-        {type === 'shield' || type === 'youth' || type === 'median' ? getTranslation(lang, 'SUBOPTIMAL') : getTranslation(lang, 'OPTIMAL')}
+        {type === 'shield' || type === 'youth' || type === 'median' ? 'Suboptimalno' : 'Optimalno'}
       </div>
       <div class="text-middle" style="width: 30%; left: 35%;">
-        {getTranslation(lang, 'AVERAGE')}
+        Prosječno
       </div>
       <div class="text-right" style="width: 34.7%;">
-        {type === 'shield' || type === 'youth' || type === 'median' ? getTranslation(lang, 'OPTIMAL') : getTranslation(lang, 'SUBOPTIMAL')}
+        {type === 'shield' || type === 'youth' || type === 'median' ? 'Optimalno' : 'Suboptimalno'}
       </div>
     </div>
   </div>
@@ -160,7 +217,6 @@
         width: 30%;
         display: flex;
         align-items: center;
-        font-size: 0.8rem;
     }
 
     .label-container {
@@ -177,13 +233,13 @@
     }
 
     .colorBox {
-        height: 5px;
+        height: 3px;
         width: 14.3%;
         border-radius: 24px;
     }
 
     .colorBoxShort {
-        height: 5px;
+        height: 3px;
         width: 5%;
         border-radius: 24px;
     }
@@ -193,9 +249,9 @@
         flex-direction: column;
         align-items: center;
         position: absolute;
-        transform: translate(-50%, -90%);
+        transform: translate(-50%, -55%);
         width: 24%;
-        max-height: 70px;
+          max-height: 70px;
     }
 
     .slider-number {
@@ -203,9 +259,9 @@
         flex-direction: column;
         align-items: center;
         position: absolute;
-        transform: translate(-50%, -120%);
+        transform: translate(-48%, -140%);
         width: 24%;
-        font-size: 0.71rem;
+        font-size: 0.38rem;
         color: white;
     }
 
@@ -214,7 +270,7 @@
         flex-direction: column;
         align-items: center;
         position: absolute;
-        transform: translate(-50%, -90%);
+        transform: translate(-50%, -95%);
         width: 24%;
     }
 
@@ -228,7 +284,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.8rem;
+        font-size: 0.44rem;
         color: #09341F80;
     }
 
@@ -239,7 +295,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.8rem;
+        font-size: 0.44rem;
         color: #09341F80;
     }
 
@@ -253,7 +309,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.8rem;
+        font-size: 0.44rem;
         color: #09341F80;
     }
 </style>
