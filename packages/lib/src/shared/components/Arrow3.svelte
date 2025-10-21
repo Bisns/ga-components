@@ -57,7 +57,7 @@
     </svg>
   </div>
   <div style="left: {calculate(percentile)}%; position: absolute; transform: translate(-50%, -80%); display: flex; align-items: center; flex-direction: column; width: 100px; height: 38px; color: white; font-size: 0.75rem;">
-    <b>{percentile}<sup style="font-size: 0.5rem;">{suffix(percentile)}</sup> percentile</b>
+    <b>{percentile}%</b>
   </div>
 
   <div style="left: {calculate(percentile)}%; position: absolute; transform: translate(-50%, -25%); display: flex; align-items: center; flex-direction: column; width: 100px; height: 38px; color: white; font-size: 0.75rem;">
