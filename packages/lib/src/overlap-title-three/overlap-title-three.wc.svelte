@@ -121,6 +121,8 @@
   let p23Percentile = 0; // p23percentile
   let p26Percentile = 0; // p26percentile
 
+  let disease_name = '';
+
   let show = false;
 
   const details = diseases.find(x => x.name === disease);
@@ -300,6 +302,54 @@
         break;
     }
 
+    switch (disease) {
+      case 'risk':
+          disease_name = '高血压风险';
+          break;
+      case 'pre':
+          disease_name = '高血压前期';
+          break;
+      case 'hyper':
+          disease_name = '高血压';
+          break;
+      case 'femalecva':
+          disease_name = '心梗和卒中';
+          break;
+      case 'cva':
+          disease_name = '心梗和卒中';
+          break;
+      case 'atherosclerosis':
+          disease_name = '动脉粥样硬化';
+          break;
+      case 'coronary':
+          disease_name = '冠心病';
+          break;
+      case 'diabetes':
+          disease_name = 'II型糖尿病';
+          break;
+      case 'dyslipidemia':
+          disease_name = '高血脂';
+          break;
+      case 'arthritis':
+          disease_name = '类风湿性关节炎';
+          break;
+      case 'colitis':
+          disease_name = '溃疡性结肠炎（UC）';
+          break;
+      case 'crohn':
+          disease_name = '克罗恩病';
+          break;
+      case 'sle':
+          disease_name = '系统性红斑狼疮（SLE）';
+          break;
+      case 'copd':
+          disease_name = '慢阻肺（慢性阻塞性肺病）COPD';
+          break;
+      case 'peri':
+          disease_name = '临绝经期/更年前期';
+          break;
+    }
+
     show = true;
     return;
   });
@@ -310,13 +360,13 @@
     <div class="container">
       {#if lang === 'chinese'}
         {#if message === 'no significant overlap'}
-          <p>您的糖链检查结果显示，和高血压风险没有相关性。</p>
+          <p>您的糖链检查结果显示，和{disease_name}没有相关性。</p>
+        {/if}
+        {#if message === 'significant overlap'}
+          <p>您的糖链检查结果显示，和{disease_name}有一些相关性。</p>
         {/if}
         {#if message === 'some overlap'}
-          <p>您的糖链检查结果显示，和高血压风险有一些相关性。</p>
-        {/if}
-        {#if message === 'minor overlap'}
-          <p>您的糖链检查结果显示，和高血压风险有低相关性。</p>
+          <p>您的糖链检查结果显示，和{disease_name}有低相关性。</p>
         {/if}
       {:else}
         <p>There is <b style="color: {color};">{message}</b> of glycan metrics <br> between current results and this condition.</p>
