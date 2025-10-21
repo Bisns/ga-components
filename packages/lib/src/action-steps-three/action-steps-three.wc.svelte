@@ -286,7 +286,7 @@
 
     .further {
         font-weight: 700;
-        font-size: 10px;
+        font-size: 14px;
         line-height: 160%;
         letter-spacing: 0.005em;
         color: rgba(9, 52, 31, 0.8);
