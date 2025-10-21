@@ -52,8 +52,8 @@
   </div>
 
   <div style="left: {calculate(percentile)}%; position: absolute; transform: translate(-50%, -85%); display: flex; align-items: center; flex-direction: column; width: 100px; height: 38px;">
-    <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="24" rx="4" fill="{color(percentile, direction)}"/>
+    <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="40" height="24" rx="4" fill="{color(percentile, direction)}"/>
     </svg>
   </div>
   <div style="left: {calculate(percentile)}%; position: absolute; transform: translate(-50%, -80%); display: flex; align-items: center; flex-direction: column; width: 100px; height: 38px; color: white; font-size: 0.75rem;">
