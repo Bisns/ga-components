@@ -237,21 +237,21 @@
         <div class="items-baseline" style="display: flex; background-color: #E4EDE9; height: auto; position: relative; border-radius: 12px;">
           <div class="number" style="background: #36624C; width: auto; padding-left: 0.6rem;padding-right: 0.6rem;">{getTranslation(lang, 'PRIMARY_FOCUS')}</div>
           <div style="padding: 1.5rem 2rem 1.1rem 2rem;">
-            <div style="margin-bottom: 0.3rem; font-size: 14px;"><b>{primaryTitle}</b></div>
-            <div style="font-size: 90%">{primaryDescription}</div>
+            <div style="margin-bottom: 0.3rem; font-size: 16px;"><b>{primaryTitle}</b></div>
+            <div style="font-size: 95%">{primaryDescription}</div>
             <div style="height: 24px"></div>
             <div class="further">{getTranslation(lang, 'FURTHER_TESTING')}:</div>
-            <div style="font-size: 90%">{primaryFurther}</div>
+            <div style="font-size: 95%">{primaryFurther}</div>
           </div>
         </div>
         <div class="items-baseline" style="display: flex; background-color: #F2F6F4; border-radius: 12px; height: auto; position: relative;">
           <div class="number" style="background: #86AF9A; width: auto; padding-left: 0.6rem;padding-right: 0.6rem;">{getTranslation(lang, 'SECONDARY_FOCUS')}</div>
           <div style="padding: 1.5rem 2rem 1.1rem 2rem;">
-            <div style="margin-bottom: 0.3rem; font-size: 14px;"><b>{supportiveTitle}</b></div>
-            <div style="font-size: 90%">{supportiveDescription}</div>
+            <div style="margin-bottom: 0.3rem; font-size: 16px;"><b>{supportiveTitle}</b></div>
+            <div style="font-size: 95%">{supportiveDescription}</div>
             <div style="height: 24px"></div>
             <div class="further">{getTranslation(lang, 'FURTHER_TESTING')}:</div>
-            <div style="font-size: 90%">{supportiveFurther}</div>
+            <div style="font-size: 95%">{supportiveFurther}</div>
           </div>
         </div>
     </div>
@@ -270,7 +270,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
+        font-size: 18px;
         color: white;
         min-height: 1.7rem;
         margin-right: 1rem;
@@ -286,7 +286,7 @@
 
     .further {
         font-weight: 700;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 160%;
         letter-spacing: 0.005em;
         color: rgba(9, 52, 31, 0.8);
