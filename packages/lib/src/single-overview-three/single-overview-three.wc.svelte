@@ -16,6 +16,7 @@
 
   let reportData: any;
   let percentile = 0;
+  let percentile_chinese = 0;
 
   let show = false;
 
@@ -25,22 +26,31 @@
     switch (type) {
       case 'shield':
         percentile = Number(reportData.Spercentile);
+        percentile_chinese = Number(reportData.Spercentile);
         break;
       case 'youth':
         percentile = Number(reportData.G2percentile);
+        percentile_chinese = Number(reportData.G2percentile);
         break;
       case 'mature':
         percentile = Number(reportData.G0percentile);
+        percentile_chinese = 100 - Number(reportData.G0percentile);
         break;
       case 'median':
         percentile = Number(reportData.G1percentile);
+        percentile_chinese = Number(reportData.G1percentile);
         break;
       case 'lifestyle':
         percentile = Number(reportData.Bpercentile);
+        percentile_chinese = 100 - Number(reportData.Bpercentile);
     }
 
     if (percentile === 100 || percentile === 0) {
       percentile = percentile === 100 ? 99 : 1;
+    }
+
+    if (percentile_chinese === 100 || percentile_chinese === 0) {
+      percentile_chinese = percentile_chinese === 100 ? 99 : 1;
     }
 
     show = true;
@@ -50,11 +60,11 @@
 {#if show}
   <div class="main">
     <div class="label">
-      {getTranslation(lang, 'RANKS_YOU')}&nbsp;
+      {getTranslation(lang, 'RANKS_YOU_BEFORE')}&nbsp;
       <span style="color: {type === 'shield' || type === 'youth' || type === 'median' ? getColorRedToBlueWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}; height: 80%; display: flex;">
-                <b>{percentile}{#if lang === 'japanese'}パーセンタイル{/if}</b>
+                <b>{percentile_chinese}%</b>
             </span>
-      <sup style="color: {type === 'shield' || type === 'youth' || type === 'median' ? getColorRedToBlueWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}; font-size: 0.65rem;"><b>{suffix(percentile, lang)}</b></sup>
+      &nbsp;{getTranslation(lang, 'RANKS_YOU_AFTER')}
       {#if lang === 'japanese'}
         にランク付けされました。
       {:else if lang === 'english'}
@@ -84,13 +94,13 @@
         {/if}
 
         <div class="slider" style="left: {calculateSliderPositionWithPercentile(percentile)}%;">
-          <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="24" rx="4" fill="{type === 'shield' || type === 'youth' || type === 'median' ? getColorRedToBlueWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}"/>
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="24" rx="4" fill="{type === 'shield' || type === 'youth' || type === 'median' ? getColorRedToBlueWithPercentile(percentile) : getColorBlueToRedWithPercentile(percentile)}"/>
           </svg>
         </div>
 
         <div class="slider-number" style="left: {calculateSliderPositionWithPercentile(percentile)}%;">
-          <b>{percentile}<sup style="font-size: 0.5rem;">{suffix(percentile, lang)}</sup> percentile</b>
+          <b>{percentile}%</b>
         </div>
 
         <div class="slider-triangle" style="left: {calculateSliderPositionWithPercentile(percentile)}%;">
