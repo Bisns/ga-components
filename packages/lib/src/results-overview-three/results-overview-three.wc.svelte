@@ -157,7 +157,7 @@
     }
 
     .label {
-        width: 30%;
+        width: 20%;
         display: flex;
         align-items: center;
         font-size: 0.8rem;
