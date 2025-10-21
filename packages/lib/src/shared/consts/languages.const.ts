@@ -707,7 +707,7 @@ export let chinese = {
   GLYCAN_MATURE: '老化糖链 (G0)',
   GLYCAN_MEDIAN: '中性糖链 (G1)',
   GLYCAN_LIFESTYLE: '受损糖链 (B)',
-  GLYCAN_LIFESTYLE_B: '平分型糖链 (B)',
+  GLYCAN_LIFESTYLE_B: '受损糖链 (B)',
   WORSE: '更差',
   BETTER: '更好',
   OPTIMAL: '最佳',

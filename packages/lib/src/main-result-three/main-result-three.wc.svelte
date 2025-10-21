@@ -121,6 +121,16 @@
             あなたの生物学的年齢は<br>暦年齢より<br><b style="color: #119999;">{diff}歳若い</b>です。
           {/if}
         </div>
+      {:else if lang === 'chinese'}
+        <div class="msg-japanese">
+          {#if glycanage === chronoage}
+              您与实际年龄相同
+          {:else if glycanage > chronoage}
+              您比实际年龄大{diff}岁
+          {:else if glycanage < chronoage}
+              您比实际年龄年轻{diff}岁
+          {/if}
+        </div>
       {:else}
         <div style="text-align: center; font-size: 1.2rem; color: black;">
           This means that your client’s <br> immune system health resembles <br> <b>an average {glycanage} year old individual</b>
