@@ -169,7 +169,7 @@
     }
 
     .graph-container {
-        width: 70%;
+        width: 80%;
         display: flex;
         align-items: center;
         justify-content: space-between;
